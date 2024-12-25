@@ -23,7 +23,7 @@ export default function Post({
       <div className="grid grid-flow-col">
         
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-slate-400 mr-3"></div>
+          <div className="w-10 h-10 rounded-full bg-slate-400 mr-3 overflow-hidden flex items-center">{pics.length>0 && <Image src={pics[0]} alt="profile" width={200} height={0} className="w-full h-auto object-fill"/>}</div>
           <div>
             <p>{name}</p>
             <p>{timestamp}</p>
@@ -45,7 +45,8 @@ export default function Post({
       <FiMessageSquare size={18}/>
       <FiBookmark size={18}/>
       <FiShare size={18}/>
-      </div>
+  
+      </div>  
     </div>
   );
 }
