@@ -4,7 +4,7 @@ export default function HomeFeed() {
   return (
     <div className="max-w-[900px]">
       {posts.map((post) => (
-        <Post {...post} />
+        <Post key={post.id} {...post} />
       ))}
     </div>
   );

@@ -6,6 +6,7 @@ import Friends from "./components/Friends";
 import CreatePost from "./components/CreatePost";
 import Messages from "./components/Messages";
 import Profile from "./components/Profile";
+import TopNav from "./components/TopNav";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
@@ -28,6 +29,7 @@ export default function Home() {
   };
   return (
     <div>
+      <TopNav />
       <main className="w-full flex flex-col items-center">{renderPage()}</main>
       <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
