@@ -2,14 +2,18 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.js"
+import cors from 'cors';
 
 
 dotenv.config()
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use('/api/auth', authRoutes);
+
+
 
 app.get("/", (req, res)=>{
     res.send("Hello Stranger!");

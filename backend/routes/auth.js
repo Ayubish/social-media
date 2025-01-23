@@ -15,6 +15,9 @@ router.post('/register', [
     check("password").isLength({ min: 6 }).withMessage("Password must be atleast 6 charachters"),
 ], async (req, res)=>{
 
+    console.log("Request received at /register");
+    console.log("Request body:", req.body);
+
     const errors = validationResult(req);
     if(!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
     

@@ -7,6 +7,7 @@ import CreatePost from "./components/CreatePost";
 import Messages from "./components/Messages";
 import Profile from "./components/Profile";
 import TopNav from "./components/TopNav";
+import SignUp from "./components/SignUp";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
@@ -22,7 +23,7 @@ export default function Home() {
       case "message":
         return <Messages />;
       case "profile":
-        return <Profile />;
+        return <SignUp />;
       default:
         return <HomeFeed />;
     }
