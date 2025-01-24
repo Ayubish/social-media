@@ -1,3 +1,5 @@
-export default function Profile() {
-  return <div>Profile</div>;
+export default function Profile({user}) {
+  return <div>Profile
+    <h1>hello: {user.email}</h1>
+  </div>;
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BottomNav from "./components/BottomNav";
 import HomeFeed from "./components/HomeFeed";
 import Friends from "./components/Friends";
@@ -8,9 +8,17 @@ import Messages from "./components/Messages";
 import Profile from "./components/Profile";
 import TopNav from "./components/TopNav";
 import SignUp from "./components/SignUp";
+import Auth from "./components/Auth";
+import { useRouter } from 'next/navigation';
+import { AuthContext } from "@/context/AuthCotext";
+
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
+  const [isLogged, setIsLogged] = useState(false);
+  const {user} = useContext(AuthContext);
+
+    const router = useRouter();
 
   const renderPage = () => {
     switch (activeTab) {
@@ -23,7 +31,7 @@ export default function Home() {
       case "message":
         return <Messages />;
       case "profile":
-        return <SignUp />;
+        return user? <Profile user={user} /> : <Auth />
       default:
         return <HomeFeed />;
     }

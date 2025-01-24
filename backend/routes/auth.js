@@ -18,8 +18,8 @@ router.post('/register', [
     console.log("Request received at /register");
     console.log("Request body:", req.body);
 
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) return res.status(400).json({errors: errors.array()});
+    const error = validationResult(req);
+    if(!error.isEmpty()) return res.status(400).json({error: error.array()});
     
     try {
         const {username, email, password} = req.body;
@@ -54,7 +54,7 @@ router.post('/login', async (req, res)=>{
         if(!isMatch) return res.status(400).json({error: "Wrong password"});
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "1h"});
-        return res.status(200).json({ token });
+        return res.status(200).json({ token, user });
     } catch (err) {
         res.status(500).json({error: 'Server error', err: err});
     }
