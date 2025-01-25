@@ -1,21 +1,23 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/connectDB.js";
-import authRoutes from "./routes/auth.js"
+import authRoutes from "./routes/auth.route.js"
+import postRoutes from "./routes/post.route.js"
 import cors from 'cors';
+import cookieParser from "cookie-parser";
 
 
 dotenv.config()
 const app = express();
 
-const corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
+
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 
 

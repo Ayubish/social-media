@@ -6,9 +6,7 @@ const PostSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    textcontent: {
-        type: String,
-    },
+    content: {type: String, default: ''},
     pictures: {
         type: [String]
     },
@@ -26,9 +24,11 @@ const PostSchema = new mongoose.Schema({
     ],
     saves: {
         type: Number,
+        default: 0,
     },
     shares: {
         type: Number,
+        default: 0,
     },
 
 
