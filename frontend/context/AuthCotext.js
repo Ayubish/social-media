@@ -6,33 +6,32 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const router = useRouter();
 
-  const login = (userData, jwtToken) => {
+  
+  const login = (userData) => {
     setUser(userData);
-    setToken(jwtToken);
-    localStorage.setItem('token', jwtToken); // Save token to localStorage
+    localStorage.setItem('user', JSON.stringify(userData)); // Save user info to localStorage
   };
+
 
   const logout = () => {
     setUser(null);
-    setToken(null);
-    localStorage.removeItem('token'); // Remove token from localStorage
+    localStorage.removeItem('user'); // Remove user from localStorage
     router.push('/login'); // Redirect to login page
   };
 
   useEffect(() => {
-    // On initial load, check for a token in localStorage
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
+    // On initial load, check for a user in localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
       // Optionally, fetch the user details here to populate `user`
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

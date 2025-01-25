@@ -15,11 +15,11 @@ const SignUp = ({setRegistered}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await registerUser({ username, email, password });
-    if(res.ok){
+    if (res.error) {
+      alert(res.error[0].msg);
+    } else {
       alert('User registered successfully');
-      login(res.user, res.token);
-    }else{
-      alert(`Erroru: ${res.error}`);
+      login(res.user);
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignIn from "../(auth)/signin/page";
+import SignUp from "../(auth)/signup/page";
+
 
 const Auth = () =>{
     const [registered, setRegistered] = useState(false);

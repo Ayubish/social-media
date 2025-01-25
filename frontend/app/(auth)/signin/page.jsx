@@ -18,7 +18,7 @@ const SignIn = ({setRegistered}) => {
     });
 
     try {
-      const res = await fetch("http://192.168.137.1:5000/api", {
+      const res = await fetch("http://192.168.137.1:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: jsondata,
@@ -30,17 +30,13 @@ const SignIn = ({setRegistered}) => {
           alert(`user: ${data.user.username} logged in`);       
         // Redirect to another page or perform other actions
       } else {
-        const contentType = res.headers.get("content-type");
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-          const errorData = await res.json();
-          setError(errorData.message || "An error occurred");
-        } else {
-          setError("An error occurred");
-        }
+        const error = await res.json();
+        setError(`There was error: ${error.error[0].msg}`);
+        
       }
     } catch (err) {
       console.error("Error logging in user", err);
-      setError("An error occurred");
+      setError(`an error: ${err}`);
     }
   };
 

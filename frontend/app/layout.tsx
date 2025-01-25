@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "../context/AuthCotext";
+import { TabProvider } from "../context/tabContext";
+import BottomNav from "./components/BottomNav";
 
 
 export const metadata: Metadata = {
@@ -16,9 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
+        <TabProvider>
       <body>
         {children}
+      <BottomNav />
       </body>
+        </TabProvider>
       </AuthProvider>
     </html>
   );
