@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user'); // Remove user from localStorage
-    router.push('/login'); // Redirect to login page
+    router.refresh();
   };
 
   useEffect(() => {

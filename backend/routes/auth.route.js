@@ -23,7 +23,7 @@ router.post('/register', [
     if(!error.isEmpty()) return res.status(400).json({error: error.array()});
     
     try {
-        const {username, email, password} = req.body;
+        const {fullname, username, email, password} = req.body;
 
         //check if username is already taken
         const existingUser = await User.findOne({ username });
@@ -35,7 +35,7 @@ router.post('/register', [
         if(existingEmail) {
             return res.status(400).json({ error: [{ msg: "Email already exist", path: "email", location: "body" }] });
         }
-        const user = new User({username, email, password});
+        const user = new User({fullname, username, email, password});
         await user.save();
 
         generateTokenSetCookie(user._id, res);

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export default function BottomNav() {
   const pathname = usePathname();
   const tabs = [
-    { id: "home", icon: FiHome, label: "Home", href: "/home" },
+    { id: "home", icon: FiHome, label: "Home", href: "/" },
     { id: "friends", icon: FiUsers, label: "Friends", href: "/friends" },
     { id: "createpost", icon: FiPlusCircle, label: "Post", href: "/createpost" },
     { id: "message", icon: FiMessageSquare, label: "Message", href: "/message" },
@@ -18,7 +18,7 @@ export default function BottomNav() {
       <ul className="flex justify-around">
 
         {tabs.map((tab) => {
-          const isActive = pathname?.startsWith(tab.href);
+          const isActive = pathname == tab.href;
           return (
           <li key={tab.id} className="flex-1">
             <Link href={tab.href} >
