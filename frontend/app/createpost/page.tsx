@@ -6,7 +6,7 @@ const CreatePost = ()=> {
 
   async function handleCreatePost(e: React.FormEvent<HTMLFormElement>){
       e.preventDefault();
-     const res = await fetch("http://localhost:5000/api/posts/create", {
+     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts/create`, {
       method: 'POST', 
       body: JSON.stringify({content}),
       headers:{
@@ -14,17 +14,13 @@ const CreatePost = ()=> {
       },
       credentials: 'include', 
     });
+    const data = await res.json();
 
      if(!res.ok) {
-      alert(`Error ${await res.json()}`)
+      alert(`Error: ${data.error}`);
      } else {
-        const data = await res.json();
-        if(data.error) {
-          alert(`Error: ${data.error[0].msg}`);
-        } else {
           alert("Posted Succesfully!");
-        }
-     }
+      }
      
   }
   

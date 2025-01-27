@@ -13,7 +13,7 @@ export default function Profile({user}) {
 
         <div className="absolute top-20 left-0 right-0 m-auto w-fit">
           <div className="w-24 h-24 bg-purple-600 rounded-full relative overflow-hidden">
-            <Image src={user.profilepic? user.profilepic: "/profile_placeholder.jpeg"} alt={user.username} fill={true} />
+            <Image src={user.profilepic? user.profilepic: "/profile_placeholder.jpeg"} sizes="33vw" alt={user.username} fill={true} priority />
           </div>
         </div>
 

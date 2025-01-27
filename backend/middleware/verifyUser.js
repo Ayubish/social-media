@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 
 export const verifyUser = async (req, res, next) => {
     const token = req.cookies.token;
-    if (!token) return res.status(401).send('Access Denied. No token provided.');
+    if (!token) return res.status(401).json({ error: 'Access Denied. No token provided.' });
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedId) =>{
         if(err){
             switch(err.name){
