@@ -8,7 +8,7 @@
   <body>
     <button onclick="login()">login</button>
     <p class="demo"></p>
-    <button onclick="cretePost()">Create post</button>
+    <button onclick="createPost()">Create post</button>
 
     <script>
       const out = document.querySelector(".demo");
@@ -33,7 +33,7 @@
         }
       }
 
-      async function creatPost() {
+      async function createPost() {
         const res = await fetch("http://localhost:5000/api/posts/create", {
           method: "POST",
           credentials: "include",

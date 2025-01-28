@@ -6,17 +6,19 @@ import { useRouter } from 'next/navigation';
 
 
 const SignUp = ({setRegistered}) => {
+  const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [info, setInfo] = useState('');
   const router = useRouter();
 
   const {login} = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await registerUser({ username, email, password });
+    const res = await registerUser({ fullname, username, email, password });
     if (res.error) {
-      alert(res.error[0].msg);
+      setInfo(res.error);
     } else {
       alert('User registered successfully');
       login(res.user);
@@ -33,6 +35,19 @@ const SignUp = ({setRegistered}) => {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Sign Up</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="fullname"
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
+              required
+            />
+          </div>
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
@@ -79,6 +94,8 @@ const SignUp = ({setRegistered}) => {
             Sign Up
           </button>
         </form>
+
+        <p className="text-red-600">{info}</p>
 
         <p className="mt-4 text-gray-700">
           Already have an account?{' '}

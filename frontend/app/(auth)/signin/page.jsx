@@ -2,6 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from "@/context/AuthCotext";
 import { useRouter } from 'next/navigation';
+import { loginUser } from '@/lib/api';
 
 const SignIn = ({setRegistered}) => {
   const [email, setEmail] = useState('');
@@ -12,33 +13,16 @@ const SignIn = ({setRegistered}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const jsondata = JSON.stringify({
-      email,
-      password,
-    });
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: jsondata,
-      });
-
-      if (res.ok) {
-          const data = await res.json();
-          login(data.user, data.token);
-          alert(`user: ${data.user.username} logged in`);       
-        // Redirect to another page or perform other actions
-      } else {
-        const error = await res.json();
-        setError(`There was error: ${error.error[0].msg}`);
-        
-      }
-    } catch (err) {
-      console.error("Error logging in user", err);
-      setError(`an error: ${err}`);
-    }
-  };
+    const res = await loginUser({email, password});
+    if (res.error) {
+      setError(res.error);
+    } else {
+      console.log(res);
+      setError(`${res.user.username} logged in successfully`);
+      login(res.user);
+  }
+  }
+    
 
   const handleRegisterRedirect = () => {
     //router.push('/auth/signup');

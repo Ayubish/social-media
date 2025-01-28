@@ -3,29 +3,29 @@ import { BsThreeDots } from "react-icons/bs";
 import { FiBookmark, FiHeart, FiMessageSquare, FiShare } from "react-icons/fi";
 
 interface PostProps {
-  name: string;
+  fullname: string;
   username: string;
-  id: number;
+  _id: string;
   timestamp: string;
-  textcontent: string;
+  content: string;
   pics: Array<string>;
 }
 export default function Post({
-  name,
+  fullname,
   username,
-  id,
+  _id,
   timestamp,
-  textcontent,
+  content,
   pics,
 }: PostProps) {
   return (
-    <div key={id} className="m-5 p-1 border rounded-md">
+    <div key={_id} className="m-5 p-1 border rounded-md">
       <div className="grid grid-flow-col">
         
         <div className="flex items-center">
           <div className="w-10 h-10 rounded-full bg-slate-400 mr-3 overflow-hidden flex items-center">{pics.length>0 && <Image src={pics[0]} alt="profile" width={200} height={0} className="w-full h-auto object-fill"/>}</div>
           <div>
-            <p>{name}</p>
+            <p>{fullname}</p>
             <p>{timestamp}</p>
           </div>
         </div>
@@ -33,7 +33,7 @@ export default function Post({
       </div>
 
       <div className="w-full">
-      <p>{textcontent}</p>
+      <p>{content}</p>
       {pics && pics.map((picurl, index)=> (
         <Image key={index} src={picurl} alt="post pic" width={1000} height={100} quality={10} className="w-full h-auto max-lg:max-h-56 lg:max-h-64 object-cover" loading="lazy"/>
         
