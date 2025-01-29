@@ -41,3 +41,13 @@ export async function createPost(content) {
     return error.response.data;
   }
 };
+
+export async function findUser(username){
+  try{
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/find`, (username));
+    return res.data
+  } catch(error) {
+    return error.response.data;
+  }
+
+}
