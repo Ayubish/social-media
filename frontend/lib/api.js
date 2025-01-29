@@ -20,7 +20,7 @@ export async function loginUser(userData) {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/signin`, userData);
     return response.data;
   } catch (error) {
-    return error.data.response.data;
+    return error.response.data;
   }
 };
 
@@ -32,3 +32,12 @@ export async function getPosts(){
     return error.response.data;
   }
 }
+
+export async function createPost(content) {
+  try {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts/create`, content);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};

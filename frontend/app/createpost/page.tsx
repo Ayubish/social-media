@@ -1,26 +1,25 @@
 'use client'
-import { useState } from "react";
+import { PostContext } from "@/context/PostContext";
+import { createPost } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
 const CreatePost = ()=> {
+  const router = useRouter();
   const [content, setContent] = useState("");
+  const {posts, setPosts} = useContext(PostContext);
 
   async function handleCreatePost(e: React.FormEvent<HTMLFormElement>){
       e.preventDefault();
-     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts/create`, {
-      method: 'POST', 
-      body: JSON.stringify({content}),
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include', 
-    });
-    const data = await res.json();
 
-     if(!res.ok) {
-      alert(`Error: ${data.error}`);
-     } else {
-          alert("Posted Succesfully!");
-      }
+    const res = await createPost({ content });
+    if(res.error) {
+      alert(`Error: ${res.error}`);
+    } else {
+      setPosts([res, ...posts]);
+      console.log("Posted Succesfully!");
+      router.push("/");
+    }
      
   }
   

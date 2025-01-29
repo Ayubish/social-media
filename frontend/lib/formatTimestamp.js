@@ -1,4 +1,4 @@
-function formatTimestamp(createdAt) {
+export function formatTimestamp(createdAt) {
     const now = new Date(); // Current date and time
     const postDate = new Date(createdAt); // Convert createdAt to a Date object
     const diffInMs = now - postDate; // Difference in milliseconds

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import { FiBookmark, FiHeart, FiMessageSquare, FiShare } from "react-icons/fi";
-
+import { formatTimestamp } from "@/lib/formatTimestamp.js"
 interface PostProps {
   fullname: string;
   username: string;
@@ -26,7 +26,7 @@ export default function Post({
           <div className="w-10 h-10 rounded-full bg-slate-400 mr-3 overflow-hidden flex items-center">{pics.length>0 && <Image src={pics[0]} alt="profile" width={200} height={0} className="w-full h-auto object-fill"/>}</div>
           <div>
             <p>{fullname}</p>
-            <p>{timestamp}</p>
+            <p>{formatTimestamp(timestamp)}</p>
           </div>
         </div>
         <BsThreeDots className="justify-self-end" />

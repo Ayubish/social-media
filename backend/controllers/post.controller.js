@@ -8,7 +8,8 @@ export const createPost = async (req, res) => {
         console.log(req.body);
         const newPost = new Post({ user: req.user._id, content : content });
         await newPost.save();
-        res.status(201).json(newPost);
+        const populatedPost = await newPost.populate({path:'user', select: 'fullname username'});
+        res.status(201).json(populatedPost);
     } catch (error) {
         res.status(500).json({ message: 'Error creating post', error });
     }
