@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
+import userRoutes from "./routes/user.route.js"
 import cors from "cors";
 import path from 'path';
 import cookieParser from "cookie-parser";
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes)
 
 app.get("/", (req, res) => {
   const __dirname = path.resolve();
