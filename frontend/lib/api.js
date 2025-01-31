@@ -44,7 +44,7 @@ export async function createPost(content) {
 
 export async function findUser(username){
   try{
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/find`, (username));
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/${username}`);
     return res.data
   } catch(error) {
     return error.response.data;
