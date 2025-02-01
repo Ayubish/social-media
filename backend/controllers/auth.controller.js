@@ -34,5 +34,9 @@ export async function signin(req, res) {
 
 export async function logout(req, res) {
     res.clearCookie('token');
-    res.json({ message: 'Logout success' });
+    res.status(200).json({ message: 'Logout success' });
+}
+
+export async function getme(req, res){
+    res.status(200).json(req.user);
 }

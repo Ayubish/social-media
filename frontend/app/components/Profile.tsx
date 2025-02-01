@@ -1,9 +1,10 @@
 import { AuthContext } from "@/context/AuthCotext";
 import Image from "next/image";
 import { useContext } from "react";
+import Post from "./Post";
 
 export default function Profile({user}) {
-  const { logout } = useContext(AuthContext);
+  //const { logout } = useContext(AuthContext);
 
   return (
     <div>
@@ -36,7 +37,20 @@ export default function Profile({user}) {
         <button>Media</button>
       </div>
 
-      <button onClick={()=>logout()}>LogOut</button>
+      <div>
+        {user.posts && user.posts.map((post)=>{
+          return <Post key={post._id}
+                    fullname={post.user.fullname}
+                    username={post.user.username}
+                    _id={post._id}
+                    timestamp={post.createdAt}
+                    content={post.content}
+                    pics={post.pictures}
+                  />
+        })}
+      </div>
+
+      {/* <button onClick={()=>logout()}>LogOut</button> */}
     </div>
   )
 }

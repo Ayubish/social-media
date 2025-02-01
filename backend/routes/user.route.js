@@ -5,7 +5,7 @@ const router = express.Router()
 router.get('/:username', async (req, res)=>{
     const username = req.params.username
 
-    const user = await User.findOne( {username} );
+    const user = await User.findOne( {username} ).populate('posts');
     if(!user){
         return res.status(404).json({error: 'User not found'})
     }

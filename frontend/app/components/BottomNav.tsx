@@ -2,8 +2,11 @@
 import { FiHome, FiUsers, FiPlusCircle, FiMessageSquare, FiUser, } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AuthContext } from "@/context/AuthCotext";
+import { useContext } from "react";
 
 export default function BottomNav() {
+  const {user} = useContext(AuthContext);
   const pathname = usePathname();
   const tabs = [
     { id: "home", icon: FiHome, label: "Home", href: "/" },
