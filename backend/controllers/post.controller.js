@@ -7,10 +7,11 @@ export const createPost = async (req, res) => {
         const { content } = req.body;
         if(!content) return res.status(400).json({error: "Content cannot be empty"});
         console.log(req.body);
-        const newPost = new Post({ user: req.user._id, content : content });
-        await User.findByIdAndUpdate(req.user._id, { $push: { posts: newPost._id } });
+
+        const newPost = new Post({ userId: req.user._id, content : content });
+        await User.findByIdAndUpdate(req.user._id, { $inc: { posts: 1 } });
         await newPost.save();
-        const populatedPost = await newPost.populate({path:'user', select: 'fullname username'});
+        const populatedPost = await newPost.populate({path:'userId', select: 'fullname username'});
         res.status(201).json(populatedPost);
     } catch (error) {
         res.status(500).json({ message: 'Error creating post', error });

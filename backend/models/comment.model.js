@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
-    post: {
+    postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post",
         require: true,
+        index: true,
     },
-    user: {
+    userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
@@ -23,10 +24,9 @@ const commentSchema = new mongoose.Schema({
                 ref: "User",
             }
         ],
-        comments: [
+        comment: [
                 {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Comment",
+                type: Number,
             },
         ],
         saves: {

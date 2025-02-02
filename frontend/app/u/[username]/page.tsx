@@ -1,5 +1,6 @@
 import Profile from "@/app/components/Profile";
 import { findUser } from "@/lib/api"
+import { notFound } from "next/navigation";
 
 export default async function Page({
     params,
@@ -7,12 +8,12 @@ export default async function Page({
     params: Promise<{ username: string }>
   }) {
     const username = (await params).username
-    try {
-        const wantedUser = await findUser(username);
-        if(wantedUser.username)return(<div><Profile user={wantedUser} /></div>) 
-        return <div>User not found</div>
-    }catch(err){
-        return <div>User not found!</div>
+    const wantedUser = await findUser(username);
+    
+    if(wantedUser.username){
+      return(<div><Profile user={wantedUser} /></div>) 
+    } else {
+      return notFound();
     }
   }
 

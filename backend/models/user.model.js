@@ -21,10 +21,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     bio: String,
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Post"
-    }]
+    posts: {
+        type: Number,
+        default: 0
+    }
 });
 
 UserSchema.pre('save', async function(next){

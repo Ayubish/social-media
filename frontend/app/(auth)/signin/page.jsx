@@ -4,15 +4,17 @@ import { AuthContext } from "@/context/AuthCotext";
 import { useRouter } from 'next/navigation';
 import { loginUser } from '@/lib/api';
 
-const SignIn = ({setRegistered}) => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [pending, setPending] = useState(false);
   const { login } = useContext(AuthContext);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPending(true);
     const res = await loginUser({email, password});
     if (res.error) {
       setError(res.error);
@@ -21,12 +23,12 @@ const SignIn = ({setRegistered}) => {
       setError(`${res.user.username} logged in successfully`);
       login(res.user);
   }
+  setPending(false);
   }
     
 
   const handleRegisterRedirect = () => {
-    //router.push('/auth/signup');
-    setRegistered(false);
+    router.push('/signup');
   };
 
   return (
@@ -55,7 +57,7 @@ const SignIn = ({setRegistered}) => {
             />
           </div>
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-            Sign In
+            {pending? "loding...": "Sign In"}
           </button>
         </form>
         {error && <p className="mt-4 text-red-500">{error}</p>}

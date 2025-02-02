@@ -23,7 +23,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/getme`)
+    axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/getme`,{
+      withCredentials: true
+    })
       .then(res => login(res.data))
       .catch(err => logout());
   }, []);

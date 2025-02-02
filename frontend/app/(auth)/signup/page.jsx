@@ -5,7 +5,7 @@ import { AuthContext } from "@/context/AuthCotext";
 import { useRouter } from 'next/navigation';
 
 
-const SignUp = ({setRegistered}) => {
+const SignUp = () => {
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -26,8 +26,8 @@ const SignUp = ({setRegistered}) => {
   };
 
   const handleRegisterRedirect = () => {
-    //router.push('/auth/signin');
-    setRegistered(true);
+    router.push('/signin');
+
   };
 
   return (

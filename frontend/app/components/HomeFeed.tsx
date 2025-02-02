@@ -4,20 +4,26 @@ import Post from "./Post";
 import axios from "axios";
 import { PostContext } from "@/context/PostContext";
 
+interface PostType {
+  _id: string;
+  user: {
+    fullname: string;
+    username: string;
+  };
+  createdAt: string;
+  content: string;
+  pictures: string[];
+}
+
 export default function HomeFeed() {
   const {posts, setPosts} = useContext(PostContext);
+  console.log("feed componenet");
 
   
-
-  // useEffect(() => {
-  //   axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts`)
-  //     .then(res => setPosts(res.data))
-  //     .catch(err => console.error(err));
-  // }, []);
   
   return (
     <div className="max-w-[900px]">
-      {posts.map((post) => (
+      {posts.map((post: PostType) => (
         <Post key={post._id}
           fullname={post.user.fullname}
           username={post.user.username}
@@ -27,7 +33,6 @@ export default function HomeFeed() {
           pics={post.pictures}
         />
       ))}
-      <h1>Hello world</h1>
     </div>
   );
 }

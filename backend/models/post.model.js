@@ -1,25 +1,26 @@
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
+        index: true,
     },
     content: {type: String, default: ''},
-    pictures: {
+    media: {
         type: [String]
     },
     likes: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            type: Number,
+            default: 0,
         }
     ],
     comments: [
             {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment",
+            type: Number,
+            default: 0,
         },
     ],
     saves: {

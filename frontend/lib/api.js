@@ -49,5 +49,13 @@ export async function findUser(username){
   } catch(error) {
     return error.response.data;
   }
+}
 
+export async function getMe(){
+  try {
+    const res = axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/getme`);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
 }
