@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 
 export const getUser = async (req, res)=> {
     const username = req.params.username
@@ -13,17 +14,14 @@ export const getUser = async (req, res)=> {
 }
 
 export const getUserPost = async (req, res) => {
-    try {
-        const {userId} = req.params.userId;
+ 
+        const userId = req.params.userId;
         const { page = 1, limit = 10 } = req.query;
-
-        const posts = await Post.find({userId: ObjectId(userId)}).sort({ createdAt: -1 })
+        // const user = await User.findOne({username});
+        // if(!user) return res.status(404).json({error: "user not found"});
+        // return res.json({message: username, user: user});
+        const posts = await Post.find({userId: new mongoose.Types.ObjectId(userId)}).sort({ createdAt: -1 }).populate({path: "userId", select: "_id fullname username avatar"})
         .skip((page - 1) * limit)
-        .limit(parseInt(limit))
-        .lean();
+        .limit(parseInt(limit)).lean();
         return res.status(201).json(posts);
-    } catch(err) {
-        return res.status(500).json({error: "Error fetching posts", err})
-    }
-
 }

@@ -20,11 +20,19 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    bio: String,
+    avatar: {
+        type: String,
+    },
+    cover: {
+        type: String,
+    },
+    bio: {
+        type: String,
+    },
     posts: {
         type: Number,
         default: 0
-    }
+    },
 });
 
 UserSchema.pre('save', async function(next){

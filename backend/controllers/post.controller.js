@@ -21,7 +21,7 @@ export const createPost = async (req, res) => {
 // Get all posts
 export const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate({path: 'user', select: '-_id -password -email -posts -__v'}).sort({ createdAt: -1 }).limit(10);
+        const posts = await Post.find().populate({path: 'userId', select: '-password -email -posts -__v'}).sort({ createdAt: -1 }).limit(10);
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching posts', error });

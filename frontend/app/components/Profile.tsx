@@ -1,7 +1,6 @@
-import { AuthContext } from "@/context/AuthCotext";
 import Image from "next/image";
-import { useContext } from "react";
-import Post from "./Post";
+import { Suspense } from "react";
+import { UserPosts } from "../u/[username]/getUserPosts";
 
 export default function Profile({user}) {
   //const { logout } = useContext(AuthContext);
@@ -13,8 +12,8 @@ export default function Profile({user}) {
         <button className="px-5 rounded-full border border-blue-600 absolute top-5 right-5">Edit profile</button>
 
         <div className="absolute top-20 left-0 right-0 m-auto w-fit">
-          <div className="w-24 h-24 bg-purple-600 rounded-full relative overflow-hidden">
-            <Image src={user.profilepic? user.profilepic: "/profile_placeholder.jpeg"} sizes="33vw" alt={user.username} fill={true} priority />
+          <div className="w-24 h-24 rounded-full relative overflow-hidden">
+            <Image src={user.profilepic? user.profilepic: "/profile_placeholder.jpeg"} sizes="30vw" alt={user.username} fill={true} priority />
           </div>
         </div>
 
@@ -31,13 +30,19 @@ export default function Profile({user}) {
           <p>{user.bio? user.bio: "No bio yet"}</p>
         </div>
       </div>
-      <div className="flex justify-evenly">
+      <div className="flex justify-evenly border-b-2">
         <button className="border-b-2 border-blue-600">Posts</button>
         <button>Repost</button>
         <button>Media</button>
       </div>
 
       <div>
+          <Suspense fallback={<div>Loading posts...</div>}>
+            <UserPosts userId={user._id} />
+          </Suspense>
+
+      </div>
+      {/* <div>
         {user.posts && user.posts.map((post)=>{
           return <Post key={post._id}
                     fullname={post.user.fullname}
@@ -48,7 +53,7 @@ export default function Profile({user}) {
                     pics={post.pictures}
                   />
         })}
-      </div>
+      </div> */}
 
       {/* <button onClick={()=>logout()}>LogOut</button> */}
     </div>
