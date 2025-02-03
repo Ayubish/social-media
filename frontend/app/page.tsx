@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 const HomeFeed = lazy(()=> import("./components/HomeFeed"));
 
 export default function Home() {
-  console.log("what am i?")
+  console.log("I am root page")
 
   return (
     <div>

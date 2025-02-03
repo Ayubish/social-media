@@ -21,7 +21,7 @@ export const getUserPost = async (req, res) => {
         // if(!user) return res.status(404).json({error: "user not found"});
         // return res.json({message: username, user: user});
         const posts = await Post.find({userId: new mongoose.Types.ObjectId(userId)}).sort({ createdAt: -1 }).populate({path: "userId", select: "_id fullname username avatar"})
-        .skip((page - 1) * limit)
+        .skip((page - 1) * parseInt(limit))
         .limit(parseInt(limit)).lean();
         return res.status(201).json(posts);
 }

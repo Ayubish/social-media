@@ -24,14 +24,7 @@ export default function HomeFeed() {
   return (
     <div className="max-w-[900px]">
       {posts.map((post: PostType) => (
-        <Post key={post._id}
-          fullname={post.user.fullname}
-          username={post.user.username}
-          _id={post._id}
-          timestamp={post.createdAt}
-          content={post.content}
-          pics={post.pictures}
-        />
+        <Post key={post._id} post={post} />
       ))}
     </div>
   );
