@@ -4,7 +4,7 @@ import { AuthProvider } from "../context/AuthCotext";
 import { TabProvider } from "../context/tabContext";
 import { PostProvider } from "../context/PostContext"
 import BottomNav from "./components/BottomNav";
-
+import Provider from "@/lib/Providers";
 
 export const metadata: Metadata = {
   title: "Social Media | By Ayub",
@@ -21,11 +21,13 @@ export default function RootLayout({
       <AuthProvider>
         <TabProvider>
           <PostProvider>
+            <body>
+          <Provider>
 
-      <body>
-        {children}
-      <BottomNav />
-      </body>
+              {children}
+          </Provider>
+              <BottomNav />
+            </body>
           </PostProvider>
         </TabProvider>
       </AuthProvider>
