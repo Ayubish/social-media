@@ -24,10 +24,12 @@ export const getAllPosts = async (req, res) => {
         const {page = 1, limit=10} = req.query;
 
         const posts = await Post.find().populate({path: 'userId', select: '-password -email -posts -__v'}).sort({ createdAt: -1 })
-        .skip((page - 1) * parseInt(limit))
-        .limit(parseInt(limit))
+        .skip((parseInt(page) - 1) * parseInt(limit))
+        .limit(parseInt(limit)+1)
         .lean();
-        res.status(200).json(posts);
+        const nextCursor = posts.length > limit? parseInt(page)+1: null;
+        const results = nextCursor ? posts.slice(0, -1) : posts;
+        res.status(200).json({posts: results, nextCursor});
     } catch (error) {
         res.status(500).json({ message: 'Error fetching posts', error });
     }

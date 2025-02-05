@@ -2,12 +2,11 @@
 import { PostContext } from "@/context/PostContext";
 import { createPost } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 const CreatePost = ()=> {
   const router = useRouter();
   const [content, setContent] = useState("");
-  const {posts, setPosts} = useContext(PostContext);
 
   async function handleCreatePost(e: React.FormEvent<HTMLFormElement>){
       e.preventDefault();
@@ -16,7 +15,6 @@ const CreatePost = ()=> {
     if(res.error) {
       alert(`Error: ${res.error}`);
     } else {
-      setPosts([res, ...posts]);
       console.log("Posted Succesfully!");
       router.push("/");
     }

@@ -1,18 +1,33 @@
+import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import axios from "axios";
 import TopNav from "./components/TopNav";
-import { lazy, Suspense } from "react";
-const HomeFeed = lazy(()=> import("./components/HomeFeed"));
+import HomeFeed from "./components/HomeFeed";
 
-export default function Home() {
-  console.log("I am root page")
+const fetchPosts = async ({ pageParam = 1 }) => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts?page=${pageParam}&limit=10`
+  );
+  if (res.status !== 200) throw new Error('Failed to fetch posts');
+  return res.data; // Ensure the response has { posts, nextPage }
+};
+
+export default async function Home() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+    initialPageParam: 1, // Start with page 1
+  });
 
   return (
     <div>
       <TopNav />
-        <main className="w-full flex flex-col items-center">
-          <Suspense fallback={<div>Loading...</div>}>
+      <main className="w-full flex flex-col items-center pb-14">
+        <HydrationBoundary state={dehydrate(queryClient)}>
           <HomeFeed />
-            </Suspense>
-        </main>
+        </HydrationBoundary>
+      </main>
     </div>
   );
 }
