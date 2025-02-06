@@ -8,7 +8,7 @@ const fetchPosts = async ({ pageParam = 1 }) => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/posts?page=${pageParam}&limit=10`
   );
   if (res.status !== 200) throw new Error('Failed to fetch posts');
-  return res.data; // Ensure the response has { posts, nextPage }
+  return res.data; 
 };
 
 export default async function Home() {

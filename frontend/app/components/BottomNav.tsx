@@ -15,6 +15,15 @@ export default function BottomNav() {
     { id: "message", icon: FiMessageSquare, label: "Message", href: "/message" },
     { id: "profile", icon: FiUser, label: "Profile", href: "/profile" },
   ];
+  if(!user){
+    return(
+      <div className="flex p-5 bg-slate-300">
+        <div>Sign Up</div>
+        <div>or</div>
+        <div>Log In</div>
+      </div>
+    )
+  }
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
