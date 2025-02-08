@@ -17,16 +17,23 @@ export default function BottomNav() {
   ];
   if(!user){
     return(
-      <div className="flex p-5 bg-slate-300">
-        <div>Sign Up</div>
-        <div>or</div>
-        <div>Log In</div>
-      </div>
+    <nav className="flex fixed bottom-0 left-0 right-0 p-5 items-center justify-between bg-white border-t border-gray-200">
+        <h2 className="text-2xl font-medium"><span className="font-bold text-blue-500">Z</span>social</h2>
+        <div>
+        <Link href="/signup">
+        <button className="bg-blue-500 text-white px-5 py-2 rounded-md text-xl mr-5">Create account</button>
+        </Link>
+        <Link href="/signin">
+        <button className="bg-slate-200 px-5 py-2 rounded-md text-xl">Signin</button>
+        </Link>
+        </  div>
+    </nav>
     )
   }
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+
       <ul className="flex justify-around">
 
         {tabs.map((tab) => {
